@@ -1,0 +1,1 @@
+# nsd_eucleadian_resemblance
