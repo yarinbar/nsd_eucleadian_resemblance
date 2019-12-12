@@ -6,7 +6,7 @@
 #include <vector>
 #include <stdexcept>
 #include <functional>
-#include <math>
+#include <math.h>
 
 namespace py = pybind11;
 
@@ -333,7 +333,6 @@ void initialize(Matrix & mat){
 float sad(Matrix const & A, Matrix const & B){
 	
 	size_t row = A.nrow();
-	size_t col = B.ncol();
 	float res = 0;
 
 	// setting the matrix to 0
@@ -352,12 +351,11 @@ float sad(Matrix const & A, Matrix const & B){
 float ssd(Matrix const & A, Matrix const & B){
 	
 	size_t row = A.nrow();
-	size_t col = B.ncol();
 	float res = 0;
 
 	// setting the matrix to 0
 	for(size_t i = 0; i < row; ++i){
-		float mid_res += A(i, 0) - B(i, 0);
+		float mid_res = A(i, 0) - B(i, 0);
 		
 		# squared
 		res += mid_res * mid_res;
@@ -370,7 +368,6 @@ float ssd(Matrix const & A, Matrix const & B){
 float mae(Matrix const & A, Matrix const & B){
 	
 	size_t row = A.nrow();
-	size_t col = B.ncol();
 	
 	float res = 0;
 
@@ -388,10 +385,6 @@ float mae(Matrix const & A, Matrix const & B){
 
 // Euclidean
 float euclidean(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	size_t col = B.ncol();
-	
 	return math.sqrt(ssd(A, B));
 }
 
