@@ -1,12 +1,12 @@
 
 CXX := g++
 FLAGS ?= -std=c++17 -O3 -g -m64 -Wall -shared -fPIC
-FILE1 = matrix.cpp
+MATRIX = matrix.cpp
 SUFFIX = $(shell python3-config --extension-suffix)
-TARGET2 = _matrix$(SUFFIX)
+MATRIX_TARGET = _matrix$(SUFFIX)
 
-FILE2 = cpp_dis.cpp
-TARGET2 = _cpp_dis$(SUFFIX)
+DISTANCE = cpp_dis.cpp
+DISTANCE_TARGET = _cpp_dis$(SUFFIX)
 
 MKLPATH ?= ${HOME}/opt/conda
 INCLUDES += -m64 -I${MKLPATH}/include \
@@ -24,12 +24,12 @@ INCLUDES += `python -m pybind11 --includes`
 CXXFLAGS += -shared -fPIC
 
 .PHONY: all
-all: $(TARGET)
+all: $(MATRIX_TARGET) $(DISTANCE_TARGET)
 
-$(TARGET1): $(FILE1)
+$(MATRIX_TARGET): $(MATRIX)
 	$(CXX) $(FLAGS) $(INCLUDES) $^ -o $@ $(LDFLAGS)
 
-$(TARGET2): $(FILE2)
+$(DISTANCE_TARGET): $(DISTANCE)
 	$(CXX) $(FLAGS) $(INCLUDES) $^ -o $@ $(LDFLAGS)
 
 .PHONY: clean

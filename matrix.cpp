@@ -329,66 +329,6 @@ void initialize(Matrix & mat){
 }
 
 
-// Sum of Absolute Differnces
-float sad(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	float res = 0;
-
-	// setting the matrix to 0
-	for(size_t i = 0; i < row; ++i){
-		float mid_res = A(i, 0) - B(i, 0);
-		
-		// absolute
-		if (mid_res < 0) res += -mid_res;
-		else res += mid_res;
-	}
-	
-	return res;
-}
-
-// Sum of Squared Differnces
-float ssd(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	float res = 0;
-
-	// setting the matrix to 0
-	for(size_t i = 0; i < row; ++i){
-		float mid_res = A(i, 0) - B(i, 0);
-		
-		// squared
-		res += mid_res * mid_res;
-	}
-	
-	return res;
-}
-
-// Mean-Absolute Error
-float mae(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	
-	float res = 0;
-
-	// setting the matrix to 0
-	for(size_t i = 0; i < row; ++i){
-		float mid_res = A(i, 0) - B(i, 0);
-		
-		// absolute
-		if (mid_res < 0) res += -mid_res;
-		else res += mid_res;
-	}
-	
-	return res / row;
-}
-
-// Euclidean
-float euclidean(Matrix const & A, Matrix const & B){
-	return sqrt(ssd(A, B));
-}
-
-
 
 PYBIND11_MODULE(_matrix, m) {
 
@@ -407,10 +347,5 @@ PYBIND11_MODULE(_matrix, m) {
   m.def("multiply_naive", &multiply_naive, "naive");
   m.def("multiply_mkl", &multiply_mkl, "mkl");
   m.def("multiply_tile", &multiply_tile, "tile");
-  
-  m.def("sad", &sad, "Sum of Absolute Differnces");
-  m.def("ssd", &sad, "Sum of Squared Differnces");
-  m.def("mae", &sad, "Mean-Absolute Error");
-  
 }
 
