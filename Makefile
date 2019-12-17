@@ -3,10 +3,10 @@ CXX := g++
 FLAGS ?= -std=c++17 -O3 -g -m64 -Wall -shared -fPIC
 MATRIX = matrix.cpp
 SUFFIX = $(shell python3-config --extension-suffix)
-MATRIX_TARGET = _matrix$(SUFFIX)
+MATRIX_TARGET = matrix$(SUFFIX)
 
 DISTANCE = cpp_dis.cpp
-DISTANCE_TARGET = _cpp_dis$(SUFFIX)
+DISTANCE_TARGET = cpp_dis$(SUFFIX)
 
 MKLPATH ?= ${HOME}/opt/conda
 INCLUDES += -m64 -I${MKLPATH}/include \
@@ -35,3 +35,7 @@ $(DISTANCE_TARGET): $(DISTANCE)
 .PHONY: clean
 clean:
 	rm -f *.so
+
+.PHONY: bench
+bench:
+	python3 bench.py

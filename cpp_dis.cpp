@@ -1,4 +1,5 @@
 #include <cmath>
+#include <mkl.h>
 #include "matrix.cpp"
 
 
@@ -62,6 +63,13 @@ float euclidean(Matrix const & A, Matrix const & B){
 }
 
 
+float mkl_euclidean(Matrix const & A, Matrix const & B){
+	int v_size = A.ncol() * A.nrow();
+	double res_vec = new double(sizeof(double) * v_size);
+	vsSub(v_size, A.m_buffer, B.m_buffer, res_vec);
+	return cblas_dnrm2(v_size, res_vec);
+}
+
 
 PYBIND11_MODULE(_cpp_dis, m) {
   
@@ -69,6 +77,7 @@ PYBIND11_MODULE(_cpp_dis, m) {
   m.def("ssd", &ssd, "Sum of Squared Differnces");
   m.def("mae", &mae, "Mean-Absolute Error");
   m.def("euclidean", &euclidean, "Euclidean");
+  m.def("mkl_euclidean", &mkl_euclidean, "Euclidean using cblas");
   
 }
 
