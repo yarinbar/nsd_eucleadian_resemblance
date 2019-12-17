@@ -1,15 +1,8 @@
 import numpy as np
 
 
-def euclidean(q, a, b):
-    
-    dqa = np.linalg.norm(q - a)
-    dqb = np.linalg.norm(q - b)
-    
-    if dqa < dqb:
-        return 0
-    
-    return 1
+def euclidean(a, b):
+    return np.linalg.norm(a - b)
 
 
 def sad(q, a, b):

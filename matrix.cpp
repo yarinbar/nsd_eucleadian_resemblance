@@ -330,7 +330,7 @@ void initialize(Matrix & mat){
 
 
 
-PYBIND11_MODULE(_matrix, m) {
+PYBIND11_MODULE(matrix, m) {
 
   py::class_<Matrix>(m, "Matrix")
       .def(py::init<size_t, size_t>())
