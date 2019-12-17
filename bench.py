@@ -1,6 +1,6 @@
-import cpp_dis
+import _cpp_dis
 import py_dis
-from random import random
+import random
 import time
 
 if __name__ == '__main__':
@@ -10,9 +10,9 @@ if __name__ == '__main__':
 	cpp_s_time = time.time()
 	
 	for i in range(runs):
-		vec_a = random.sample(xrange(4096), 1024)
-		vec_b = random.sample(xrange(4096), 1024)
-		dis = cpp_dis.euclidean(vec_a, vec_b)
+		vec_a = random.sample(range(4096), 1024)
+		vec_b = random.sample(range(4096), 1024)
+		dis = _cpp_dis.euclidean(vec_a, vec_b)
 	
 	cpp_e_time = time.time()
 	
@@ -21,8 +21,8 @@ if __name__ == '__main__':
 	py_s_time = time.time()
 	
 	for i in range(runs):
-		vec_a = random.sample(xrange(4096), 1024)
-		vec_b = random.sample(xrange(4096), 1024)
+		vec_a = random.sample(range(4096), 1024)
+		vec_b = random.sample(range(4096), 1024)
 		dis = py_dis.euclidean(vec_a, vec_b)
 	
 	py_e_time = time.time()
