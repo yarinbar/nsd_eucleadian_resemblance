@@ -39,3 +39,7 @@ clean:
 .PHONY: bench
 bench:
 	python3 bench.py
+	
+.PHONY: test
+test:
+	pytest -sv validate.py
