@@ -1,7 +1,8 @@
 #include <cmath>
 #include <mkl.h>
 #include "matrix.cpp"
-
+#include <iostream>
+using namespace std;
 
 // Sum of Absolute Differnces
 float sad(Matrix const & A, Matrix const & B){
@@ -69,7 +70,10 @@ float mkl_euclidean(Matrix const & A, Matrix const & B){
 	double* res_vec = new double(v_size);
 	vdSub(v_size, A.m_buffer, B.m_buffer, res_vec);
 	double res = cblas_dnrm2(v_size, res_vec, 1);
-	delete[] res_vec;
+	cout << res << endl;
+	cout << res_vec << endl;
+	if(res_vec) {delete[] res_vec};
+	cout << res_vec << endl;
 	return (float)res;
 }
 
@@ -79,7 +83,10 @@ float mkl_sad(Matrix const & A, Matrix const & B){
 	double* res_vec = new double(v_size);
 	vdAbs(v_size, A.m_buffer, res_vec);
 	double res = cblas_dnrm2(v_size, res_vec, 1);
-	delete[] res_vec;
+	cout << res << endl;
+	cout << res_vec << endl;
+	if(res_vec) {delete[] res_vec};
+	cout << res_vec << endl;
 	return (float)res;
 }
 
