@@ -4,6 +4,12 @@ import py_dis
 import random
 import time
 
+def convert_to_np(A):
+        arr = []
+        for i in range(A.nrow):
+            arr.append(A[i, 0])
+        return np.array(arr)
+
 if __name__ == '__main__':
 
     runs = 1000
@@ -59,9 +65,9 @@ if __name__ == '__main__':
 
     for i in range(runs):
         for j in range(vlen):
-            A[j, 0] = random.randint(-4096, 4096) / 128
+            A = (np.random.rand(vlen, 1) - 0.5) * 64
 #            print(A[j, 0])
-            B[j, 0] = random.randint(-4096, 4096) / 128
+            B = (np.random.rand(vlen, 1) - 0.5) * 64
 #            print(B[j, 0])
         dis = py_dis.np_euclidean(A, B)
 

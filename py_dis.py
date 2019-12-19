@@ -32,7 +32,21 @@ def convert_to_np(A):
         return np.array(arr)
 
 def np_euclidean(A, B):
-	return np.linalg.norm(np.absolute(convert_to_np(A) - convert_to_np(B)))
+	if type(A)is not numpy.ndarray:
+		A = convert_to_np(A)
+		
+	if type(B)is not numpy.ndarray:
+		A = convert_to_np(B)
+		
+	return np.linalg.norm(np.absolute(A - B))
+	
 
 def np_sad(A, B):
-	return np.sum(np.absolute(convert_to_np(A) - convert_to_np(B)))
+	if type(A)is not numpy.ndarray:
+		A = convert_to_np(A)
+		
+	if type(B)is not numpy.ndarray:
+		A = convert_to_np(B)
+
+	return np.sum(np.absolute(A - B))
+	

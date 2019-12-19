@@ -40,6 +40,7 @@ clean:
 bench:
 	python3 bench.py
 	
-.PHONY: test
-test:
+.PHONY: test_dis
+test_dis:
 	pytest -sv validate.py
+	
