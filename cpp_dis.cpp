@@ -74,15 +74,6 @@ float mkl_euclidean(Matrix const & A, Matrix const & B){
 	return (float)res;
 }
 
-float mkl_sad(Matrix const & A, Matrix const & B){
-	int v_size = A.ncol() * A.nrow();
-	mkl_set_num_threads(1);
-	double* res_vec = new double[v_size];
-	vdAbs(v_size, A.m_buffer, res_vec);
-	double res = cblas_dnrm2(v_size, res_vec, 1);
-	if(res_vec) {delete[] res_vec;}
-	return (float)res;
-}
 
 PYBIND11_MODULE(cpp_dis, m) {
   m.def("sad", &sad, "Sum of Absolute Differnces");
@@ -90,6 +81,5 @@ PYBIND11_MODULE(cpp_dis, m) {
   m.def("mae", &mae, "Mean-Absolute Error");
   m.def("euclidean", &euclidean, "Euclidean");
   m.def("mkl_euclidean", &mkl_euclidean, "Euclidean using cblas");
-  m.def("mkl_sad", &mkl_sad, "SAD using cblas");
 }
 

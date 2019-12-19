@@ -43,7 +43,6 @@ class TestDis(unittest.TestCase):
         zero = self.create_zero(1024, 1)
 
         self.assertEqual(cpp_dis.sad(zero, zero), 0)
-        self.assertEqual(cpp_dis.mkl_sad(zero, zero), 0)
         self.assertEqual(py_dis.sad(zero, zero), 0)
 
     def test_euclidean(self):
@@ -74,14 +73,12 @@ class TestDis(unittest.TestCase):
 
             np_vec1 = self.convert_to_np(vec1)
             np_vec2 = self.convert_to_np(vec2)
-			
-            res = np.sum(np.absolute(np_vec1 - np_vec2))
 
-            mkl_res = cpp_dis.mkl_sad(vec1, vec2)
+            res = np.sum(np.abs(np.subtract(np_vec1, np_vec2)))
+
             cpp_res = cpp_dis.sad(vec1, vec2)
             py_res  = py_dis.sad(vec1, vec2)
 
-            self.assertAlmostEqual(res, mkl_res, 3)
             self.assertAlmostEqual(res, cpp_res, 3)
             self.assertAlmostEqual(res, py_res, 3)
 
