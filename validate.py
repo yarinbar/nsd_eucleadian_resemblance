@@ -18,7 +18,7 @@ class TestDis(unittest.TestCase):
         return A
 
     def create_zero(self, rows, cols):
-        A = _matrix.Matrix(rows, cols)
+        A = matrix.Matrix(rows, cols)
         for i in range(rows):
             for j in range(cols):
                 A[i, j] = 0
@@ -33,20 +33,18 @@ class TestDis(unittest.TestCase):
     def test_euclidean_zero(self):
 
         zero = self.create_zero(1024, 1)
-        vec  = self.create_random(1024, 1)
 
-        self.assertEqual(cpp_dis.euclidean(zero, vec), 0)
-        self.assertEqual(cpp_dis.mkl_euclidean(zero, vec), 0)
-        self.assertEqual(py_dis.euclidean(zero, vec), 0)
+        self.assertEqual(cpp_dis.euclidean(zero, zero), 0)
+        self.assertEqual(cpp_dis.mkl_euclidean(zero, zero), 0)
+        self.assertEqual(py_dis.euclidean(zero, zero), 0)
 
     def test_sad_zero(self):
 
         zero = self.create_zero(1024, 1)
-        vec  = self.create_random(1024, 1)
 
-        self.assertEqual(cpp_dis.sad(zero, vec), 0)
-        self.assertEqual(cpp_dis.mkl_sad(zero, vec), 0)
-        self.assertEqual(py_dis.sad(zero, vec), 0)
+        self.assertEqual(cpp_dis.sad(zero, zero), 0)
+        self.assertEqual(cpp_dis.mkl_sad(zero, zero), 0)
+        self.assertEqual(py_dis.sad(zero, zero), 0)
 
     def test_euclidean(self):
         runs = 1000
@@ -63,9 +61,9 @@ class TestDis(unittest.TestCase):
             cpp_res = cpp_dis.euclidean(vec1, vec2)
             py_res  = py_dis.euclidean(vec1, vec2)
 
-            self.assertAlmostEqual(res, mkl_res, 5)
-            self.assertAlmostEqual(res, cpp_res, 5)
-            self.assertAlmostEqual(res, py_res, 5)
+            self.assertAlmostEqual(res, mkl_res, 3)
+            self.assertAlmostEqual(res, cpp_res, 3)
+            self.assertAlmostEqual(res, py_res, 3)
 
     def test_sad(self):
         runs = 1000
@@ -82,7 +80,7 @@ class TestDis(unittest.TestCase):
             cpp_res = cpp_dis.euclidean(vec1, vec2)
             py_res  = py_dis.euclidean(vec1, vec2)
 
-            self.assertAlmostEqual(res, mkl_res, 5)
-            self.assertAlmostEqual(res, cpp_res, 5)
-            self.assertAlmostEqual(res, py_res, 5)
+            self.assertAlmostEqual(res, mkl_res, 3)
+            self.assertAlmostEqual(res, cpp_res, 3)
+            self.assertAlmostEqual(res, py_res, 3)
 

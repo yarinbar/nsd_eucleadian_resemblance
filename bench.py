@@ -6,8 +6,8 @@ import time
 
 if __name__ == '__main__':
 
-    runs = 10
-    vlen = 16
+    runs = 1000
+    vlen = 1024
     A = matrix.Matrix(vlen, 1)
     B = matrix.Matrix(vlen, 1)
     print("doing cpp")
