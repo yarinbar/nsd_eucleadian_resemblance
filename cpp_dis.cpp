@@ -72,7 +72,7 @@ float mkl_euclidean(Matrix const & A, Matrix const & B){
 	double res = cblas_dnrm2(v_size, res_vec, 1);
 	cout << res << endl;
 	cout << res_vec << endl;
-	if(res_vec) {delete[] res_vec};
+	if(res_vec) {delete[] res_vec;}
 	cout << res_vec << endl;
 	return (float)res;
 }
@@ -85,7 +85,7 @@ float mkl_sad(Matrix const & A, Matrix const & B){
 	double res = cblas_dnrm2(v_size, res_vec, 1);
 	cout << res << endl;
 	cout << res_vec << endl;
-	if(res_vec) {delete[] res_vec};
+	if(res_vec) {delete[] res_vec;}
 	cout << res_vec << endl;
 	return (float)res;
 }
