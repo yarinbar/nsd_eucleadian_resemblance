@@ -99,7 +99,8 @@ public:
     }
 
     ~Matrix(){
-        reset_buffer(0, 0);
+        if(this->m_buffer)
+		delete[] this->m_buffer;
     }
 
     double   operator() (size_t row, size_t col) const { return m_buffer[index(row, col)]; }
