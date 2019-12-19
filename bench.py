@@ -46,7 +46,7 @@ if __name__ == '__main__':
     mkl_e_time = time.time()
     mkl_time = mkl_e_time - mkl_s_time
 	
-	print("doing py")
+    print("doing py")
     py_s_time = time.time()
 
     for i in range(runs):
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     py_e_time = time.time()
     py_time = py_e_time - py_s_time
 	
-	print("doing numpy")
+    print("doing numpy")
     npy_s_time = time.time()
 
     for i in range(runs):
@@ -73,12 +73,11 @@ if __name__ == '__main__':
 
     npy_e_time = time.time()
     npy_time = npy_e_time - npy_s_time
-	
-	
+
     print("cpp_time / mkl_time  = {}".format(float(cpp_time / mkl_time)))
-	print("py_time  / cpp_time  = {}".format(float(py_time  / cpp_time)))
-	print("npy_time / py_time   = {}".format(float(npy_time / py_time)))
-	print("npy_time / cpp_time  = {}".format(float(npy_time / cpp_time)))
-	
+    print("py_time  / cpp_time  = {}".format(float(py_time  / cpp_time)))
+    print("npy_time / py_time   = {}".format(float(npy_time / py_time)))
+    print("npy_time / cpp_time  = {}".format(float(npy_time / cpp_time)))
+
     print("done")
 
