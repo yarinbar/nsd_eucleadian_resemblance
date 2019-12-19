@@ -74,11 +74,12 @@ class TestDis(unittest.TestCase):
 
             np_vec1 = self.convert_to_np(vec1)
             np_vec2 = self.convert_to_np(vec2)
-            res = np.linalg.norm(np_vec1 - np_vec2)
+			
+            res = np.sum(np.absolute(np_vec1 - np_vec2))
 
-            mkl_res = cpp_dis.mkl_euclidean(vec1, vec2)
-            cpp_res = cpp_dis.euclidean(vec1, vec2)
-            py_res  = py_dis.euclidean(vec1, vec2)
+            mkl_res = cpp_dis.mkl_sad(vec1, vec2)
+            cpp_res = cpp_dis.sad(vec1, vec2)
+            py_res  = py_dis.sad(vec1, vec2)
 
             self.assertAlmostEqual(res, mkl_res, 3)
             self.assertAlmostEqual(res, cpp_res, 3)

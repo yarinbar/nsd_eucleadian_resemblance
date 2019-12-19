@@ -23,3 +23,16 @@ def sad(A, B):
 
         res += mid_res
         return res
+		
+
+def convert_to_np(A):
+        arr = []
+        for i in range(A.nrow):
+            arr.append(A[i, 0])
+        return np.array(arr)
+
+def np_euclidean(A, B):
+	return np.linalg.norm(np.absolute(convert_to_np(A) - convert_to_np(B)))
+
+def np_sad(A, B):
+	return np.sum(np.absolute(convert_to_np(A) - convert_to_np(B)))
