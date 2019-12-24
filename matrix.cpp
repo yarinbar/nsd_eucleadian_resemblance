@@ -1,12 +1,13 @@
 #include <mkl.h>
 #include <pybind11/pybind11.h>
+#include <pybind11/numpy.h>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
 #include <vector>
 #include <stdexcept>
 #include <functional>
-#include <math>
+#include <cmath>
 
 namespace py = pybind11;
 
@@ -99,7 +100,8 @@ public:
     }
 
     ~Matrix(){
-        reset_buffer(0, 0);
+        if(this->m_buffer)
+		delete[] this->m_buffer;
     }
 
     double   operator() (size_t row, size_t col) const { return m_buffer[index(row, col)]; }
@@ -329,75 +331,8 @@ void initialize(Matrix & mat){
 }
 
 
-// Sum of Absolute Differnces
-float sad(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	size_t col = B.ncol();
-	float res = 0;
 
-	// setting the matrix to 0
-	for(size_t i = 0; i < row; ++i){
-		float mid_res = A(i, 0) - B(i, 0);
-		
-		# absolute
-		if (mid_res < 0) res += -mid_res;
-		else res += mid_res;
-	}
-	
-	return res;
-}
-
-// Sum of Squared Differnces
-float ssd(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	size_t col = B.ncol();
-	float res = 0;
-
-	// setting the matrix to 0
-	for(size_t i = 0; i < row; ++i){
-		float mid_res += A(i, 0) - B(i, 0);
-		
-		# squared
-		res += mid_res * mid_res;
-	}
-	
-	return res;
-}
-
-// Mean-Absolute Error
-float mae(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	size_t col = B.ncol();
-	
-	float res = 0;
-
-	// setting the matrix to 0
-	for(size_t i = 0; i < row; ++i){
-		float mid_res = A(i, 0) - B(i, 0);
-		
-		# absolute
-		if (mid_res < 0) res += -mid_res;
-		else res += mid_res;
-	}
-	
-	return res / row;
-}
-
-// Euclidean
-float euclidean(Matrix const & A, Matrix const & B){
-	
-	size_t row = A.nrow();
-	size_t col = B.ncol();
-	
-	return math.sqrt(ssd(A, B));
-}
-
-
-
-PYBIND11_MODULE(_matrix, m) {
+PYBIND11_MODULE(matrix, m) {
 
   py::class_<Matrix>(m, "Matrix")
       .def(py::init<size_t, size_t>())
@@ -409,15 +344,13 @@ PYBIND11_MODULE(_matrix, m) {
              return m(i.first, i.second);
            })
       .def("__setitem__", [](Matrix &m, std::pair<size_t, size_t> i,
-                             double v) { m(i.first, i.second) = v; });
+                             double v) { m(i.first, i.second) = v; })
+	.def_property("array", [](Matrix &mat){
+		return py::array({mat.nrow(), mat.ncol()}, mat.m_buffer,
+		py::capsule(mat.m_buffer, [](void *) {}));}, nullptr);
 
   m.def("multiply_naive", &multiply_naive, "naive");
   m.def("multiply_mkl", &multiply_mkl, "mkl");
   m.def("multiply_tile", &multiply_tile, "tile");
-  
-  m.def("sad", &sad, "Sum of Absolute Differnces");
-  m.def("ssd", &sad, "Sum of Squared Differnces");
-  m.def("mae", &sad, "Mean-Absolute Error");
-  
 }
 
