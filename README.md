@@ -8,7 +8,7 @@ with the same content are closer than two feature vectors with different content
 copy this lines to your terminal (with mkl installed):
 
 ```
-git clone https://github.com/yarinbar/nsd_eucleadian_resemblance.git
+git clone https://github.com/yarinbar/nsd_eucleadian_resemblance
 cd nsd_eucleadian_resemblance.git
 chmod 777 setup.sh
 ./setup.sh
