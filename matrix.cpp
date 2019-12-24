@@ -1,5 +1,6 @@
 #include <mkl.h>
 #include <pybind11/pybind11.h>
+#include <pybind11/numpy.h>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -343,7 +344,10 @@ PYBIND11_MODULE(matrix, m) {
              return m(i.first, i.second);
            })
       .def("__setitem__", [](Matrix &m, std::pair<size_t, size_t> i,
-                             double v) { m(i.first, i.second) = v; });
+                             double v) { m(i.first, i.second) = v; })
+	.def_property("array", [](Matrix &mat){
+		return py::array({mat.nrow(), mat.ncol()}, mat.m_buffer,
+		py::capsule(mat.m_buffer, [](void *) {}));}, nullptr);
 
   m.def("multiply_naive", &multiply_naive, "naive");
   m.def("multiply_mkl", &multiply_mkl, "mkl");
