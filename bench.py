@@ -17,7 +17,13 @@ if __name__ == '__main__':
     vlen = 1024
     A = matrix.Matrix(vlen, 1)
     B = matrix.Matrix(vlen, 1)
-    
+	
+	cpp_time = 0
+    mkl_time = 0
+	py_time = 0
+	npync_time = 0
+	npyc_time = 0
+	
 	print("doing cpp")
     for i in range(runs):
 
@@ -56,25 +62,35 @@ if __name__ == '__main__':
 		py_e_time = time.time()
 		py_time += py_e_time - py_s_time
 
-    
+	print("doing numpy no conversion")
+	for i in range(runs):
+        for j in range(vlen):
+            A[j, 0] = random.randint(-4096, 4096) / 128
+#            print(A[j, 0])
+            B[j, 0] = random.randint(-4096, 4096) / 128
+#            print(B[j, 0])
+		npync_s_time = time.time()
+        dis = py_dis.np_euclidean(A, B)
+		npync_e_time = time.time()
+		npync_time += npync_e_time - npync_s_time
 	
-    print("doing numpy")
+    print("doing numpy conversion")
     for i in range(runs):
         for j in range(vlen):
             A = (np.random.rand(vlen, 1) - 0.5) * 64
 #            print(A[j, 0])
             B = (np.random.rand(vlen, 1) - 0.5) * 64
 #            print(B[j, 0])
-		npy_s_time = time.time()
+		npyc_s_time = time.time()
         dis = py_dis.np_euclidean(A, B)
-		npy_e_time = time.time()
-		npy_time += npy_e_time - npy_s_time
+		npyc_e_time = time.time()
+		npyc_time += npyc_e_time - npyc_s_time
     
 
-    print("cpp_time / mkl_time  = {}".format(float(cpp_time / mkl_time)))
+    print("mkl_time / cpp_time  = {}".format(float(mkl_time / cpp_time)))
     print("py_time  / cpp_time  = {}".format(float(py_time  / cpp_time)))
-    print("npy_time / py_time   = {}".format(float(npy_time / py_time)))
-    print("npy_time / cpp_time  = {}".format(float(npy_time / cpp_time)))
+    print("npync_time / cpp_time   = {}".format(float(npync_time / cpp_time)))
+    print("npyc_time / cpp_time  = {}".format(float(npyc_time / cpp_time)))
 
     print("done")
 
