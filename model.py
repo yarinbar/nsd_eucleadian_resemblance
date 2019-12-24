@@ -26,9 +26,22 @@ class FVModel():
 
         self.model     = model
         self.pred_func = pred_func
-
+		
+	@property
+	def summary(self):
+		return self.model.summary
+	
     def predict(self, q, a, b):
-
+		
+		if len(q.shape) == 3:
+			np.expand_dims(q, axis=0)
+			
+		if len(a.shape) == 3:
+			np.expand_dims(a, axis=0)
+		
+		if len(b.shape) == 3:
+			np.expand_dims(b, axis=0)
+		
         q_fv = self.model.predict(q)
         a_fv = self.model.predict(a)
         b_fv = self.model.predict(b)
