@@ -29,9 +29,13 @@ make test
 ```
 
 We have 4 tests to test the correctness of the code:
+
 	* euclidean zero vector -> needs to output 0
+	
 	* sad (sum of absolute differences) zero vector -> needs to output 0
+	
 	* euclidean test -> checks the correctness of the calculations using numpy as ground truth
+	
 	* sad test -> checks the correctness of the calculations using numpy as ground truth
 
 
