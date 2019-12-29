@@ -47,5 +47,5 @@ def np_sad(A, B):
 	if type(B)is not np.ndarray:
 		A = convert_to_np(B)
 
-	return np.sum(np.abs.np.subtract(A, B))
+	return np.abs(A - B).sum()
 	
